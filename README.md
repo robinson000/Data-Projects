@@ -30,7 +30,7 @@ Student Performance [Dashboard Screenshots](Education%20Analytics/Dashboards/Stu
 > Predicting student dropouts using a Random Forest Regressor machine learning model.
 
 ## Video Game Analytics
-Video Game Sales [Dashboard Screenshots](Crime%20Analytics/Dashboards/Video%20Games%20Dashboard%20Screenshots.pdf)
+Video Game Sales [Dashboard Screenshots](Video%20Game%20Analytics/Dashboards/Video%20Games%20Dashboard%20Screenshots.pdf)
 > Data was retreived from Kaggle.
 
 > Inserted dynamic images into the Power BI dashboard.
