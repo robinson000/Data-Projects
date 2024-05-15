@@ -24,13 +24,13 @@ Major Crime Indicators (Toronto) [Dashboard Screenshots](Crime%20Analytics/Dashb
 > Added a dynamic map to the Power BI dashboard.
 
 ## Education Analytics
-Student Performance [Dashboard Screenshots](Student%20Performance%20Dashboard%20Screenshots.pdf)
+Student Performance [Dashboard Screenshots](Education%20Analytics/Dashboards/Student%20Performance%20Dashboard%20Screenshots.pdf)
 > Data was retreived from Kaggle.
 
 > Predicting student dropouts using a Random Forest Regressor machine learning model.
 
 ## Video Game Analytics
-Video Game Sales [Dashboard Screenshots](Video%20Games%20Dashboard%20Screenshots.pdf)
+Video Game Sales [Dashboard Screenshots](Crime%20Analytics/Dashboards/Video%20Games%20Dashboard%20Screenshots.pdf)
 > Data was retreived from Kaggle.
 
 > Inserted dynamic images into the Power BI dashboard.
