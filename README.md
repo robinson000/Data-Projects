@@ -1,12 +1,25 @@
 # Data Analytics Projects
 
 ## Overview
-All projects in this GitHub repository consist of two main components:
-1. Jupyter Notebook (Python) for data analysis and preparation.
-2. Power BI Dashboard for interactive visualization and reporting.
+This GitHub repository will serve as the central hub for all my existing and future personal data analysis projects.
+Tools that I plan on using:
+1. Python (Jupyter Notebook)
+2. Power BI 
+3. SQL
+4. Excel
 
-## Crime Analytics
-Bicycle Theft (Ottawa and Toronto) [Dashboard Screenshots](Crime%20Analytics/Dashboards/Bicycle%20Theft%20Dashboard%20Screenshots.pdf)
+## Bicycle Theft Analysis
+
+Analysis Conducted Using Python 
+
+> Data Cleaning and Transformation
+
+> Trend Analysis
+
+> External Factor Analysis (Consumer Price Index, Temperature, Education Level of by location)
+
+
+Analysis Conducted Power BI [Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
 
 > Toronto data is directly extracted from the Open Data Police API, while Ottawa data is obtained from the Ottawa Police website.
 
@@ -15,24 +28,5 @@ Bicycle Theft (Ottawa and Toronto) [Dashboard Screenshots](Crime%20Analytics/Das
 > Complete Address Extraction utilizing the geocoding service 'Nominatim'.
 
 > Added a dynamic map to the Power BI dashboard.
-
-Major Crime Indicators (Toronto) [Dashboard Screenshots](Crime%20Analytics/Dashboards/Major%20Crime%20Indicator%20Dashboard%20Screenshots.pdf)
-> Data is directly extracted from the Open Data Police API.
-
-> 4 Different Dataset were used.
-
-> Added a dynamic map to the Power BI dashboard.
-
-## Education Analytics
-Student Performance [Dashboard Screenshots](Education%20Analytics/Dashboards/Student%20Performance%20Dashboard%20Screenshots.pdf)
-> Data was retreived from Kaggle.
-
-> Predicting student dropouts using a Random Forest Regressor machine learning model.
-
-## Video Game Analytics
-Video Game Sales [Dashboard Screenshots](Video%20Game%20Analytics/Dashboards/Video%20Games%20Dashboard%20Screenshots.pdf)
-> Data was retreived from Kaggle.
-
-> Inserted dynamic images into the Power BI dashboard.
 
 
