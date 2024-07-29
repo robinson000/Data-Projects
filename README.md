@@ -21,12 +21,10 @@ Analysis Conducted Using Python
 
 Analysis Conducted Power BI [Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
 
-> Toronto data is directly extracted from the Open Data Police API, while Ottawa data is obtained from the Ottawa Police website.
+> Creation of Measures and Calculated Columns
 
-> Total Bicycle Value estimated through Machine Learning using the Random Forest Regressor.
+> Design Visualizations
 
-> Complete Address Extraction utilizing the geocoding service 'Nominatim'.
-
-> Added a dynamic map to the Power BI dashboard.
+> Trend Analysis
 
 
