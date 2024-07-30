@@ -18,13 +18,19 @@ Analysis Conducted Using Python
 
 > External Factor Analysis (Consumer Price Index, Temperature, Education Level of by location)
 
+https://github.com/user-attachments/assets/65c89543-11df-4e28-b40e-707e8ead21d0
 
-Analysis Conducted Power BI [Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
+Analysis Conducted Power BI 
 
 > Creation of Measures and Calculated Columns
 
 > Design Visualizations
 
 > Trend Analysis
+
+[Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
+
+
+
 
 
