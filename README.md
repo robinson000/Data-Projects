@@ -28,4 +28,4 @@ Analysis Conducted Power BI
 
 > Trend Analysis
 
-[Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
+[Power BI Dashboard Screenshots](Bicycle%20Theft%20Analysis/Dashboard%20Screenshots.pdf)
