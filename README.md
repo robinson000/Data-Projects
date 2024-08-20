@@ -16,9 +16,9 @@ Analysis Conducted Using Python
 
 > Trend Analysis
 
-> External Factor Analysis (Consumer Price Index, Temperature, Education Level of by location)
+> External Factor Analysis (Consumer Price Index, Temperature, Education Level by location)
 
-https://github.com/user-attachments/assets/65c89543-11df-4e28-b40e-707e8ead21d0
+> [Python Code] (Bicycle%20Theft%20Analysis/python_analysis.ipynb)
 
 Analysis Conducted Power BI 
 
