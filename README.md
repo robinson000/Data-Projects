@@ -16,7 +16,7 @@ Analysis Conducted Using Python
 
 > Trend Analysis
 
-> External Factor Analysis (Consumer Price Index, Temperature, Education Level by location)
+> External Factor Analysis (Consumer Price Index, Temperature, and Education Level by location)
 
 [Python Code](https://robinson000.github.io/Data-Projects/Bicycle%20Theft%20Analysis/python_analysis.html)
 
