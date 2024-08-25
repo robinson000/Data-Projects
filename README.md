@@ -20,7 +20,7 @@ Analysis Conducted Using Python
 
 [Python Code](https://robinson000.github.io/Data-Projects/Bicycle%20Theft%20Analysis/python_analysis.html)
 
-Analysis Conducted Power BI 
+Analysis Conducted Using Power BI 
 
 > Creation of Measures and Calculated Columns
 
