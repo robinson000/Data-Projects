@@ -14,10 +14,17 @@ Banking Customer Churn Analysis.
 
 */
 
--- Create new SQL view.
+-- Create or alter new SQL view.
 create or alter view churn_view AS
 SELECT CustomerId, Surname, CreditScore, Geography,	Gender,	Age, Tenure, Balance, NumOfProducts, HasCrCard,	IsActiveMember,	
 EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card Type" as Card_Type,
+
+-- Add Retention Status.
+	CASE 
+        WHEN Exited = '0' THEN 'Retained'
+        WHEN Exited = '1' THEN 'Churned'
+        ELSE NULL
+	END AS Retention_Status,
 
 	-- Add Age Group Column.
 	CASE 
@@ -36,36 +43,68 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
         ELSE 'Long-term customers'
 	END AS Tenure_Classification,
 
-	-- Add Balance Category.
+	-- Add Tenure Categories.
+	CASE 
+        WHEN Tenure < 1 THEN 'Under 1'
+        WHEN Tenure IN (1,2) THEN '1-2'
+		WHEN Tenure IN (3,4) THEN '3-4'
+		WHEN Tenure IN (5,6) THEN '5-6'
+		WHEN Tenure IN (7,8) THEN '7-8'
+		WHEN Tenure IN (9,10) THEN '9-10'
+        ELSE NULL
+	END AS Tenure_Categories,
+
+	-- Add Tenure Categories Rank.
+	CASE 
+        WHEN Tenure < 1 THEN 1
+        WHEN Tenure IN (1,2) THEN 2
+		WHEN Tenure IN (3,4) THEN 3
+		WHEN Tenure IN (5,6) THEN 4
+		WHEN Tenure IN (7,8) THEN 5
+		WHEN Tenure IN (9,10) THEN 6
+        ELSE NULL
+	END AS Tenure_Rank,
+
+	-- Add Balance Category on the same scale as the Salary Category to enable visual comparison.
 	CASE
-	    WHEN cast(Balance as Float) <= 0 THEN '0'
-        WHEN cast(Balance as Float) <= 10000 THEN 'Under 10k'
-		WHEN cast(Balance as Float) <= 50000 THEN '10k - 50k'
-		WHEN cast(Balance as Float) <= 100000 THEN '50k - 100k'
-        ELSE 'Over 100k'
+	    WHEN Balance IS NULL THEN 'Unknown'
+		WHEN cast(Balance as Float) = 0 THEN '$0'
+		WHEN cast(Balance as Float) > 0 AND cast(Balance as Float) <= 30000 THEN 'Under $30k'
+		WHEN cast(Balance as Float) > 30000 AND cast(Balance as Float) <= 60000 THEN '$30k - $60k'
+		WHEN cast(Balance as Float) > 60000 AND cast(Balance as Float) <= 90000 THEN '$60k - $90k'
+		WHEN cast(Balance as Float) > 90000 AND cast(Balance as Float) <= 120000 THEN '$90k - $120k'
+		ELSE 'Over $120k'
 	END AS Balance_Category,
+	-- Add a Balance Rank column to facilitate sorting of Balance_Category text values.
 	CASE
-	    WHEN cast(Balance as Float) <= 0 THEN 1
-        WHEN cast(Balance as Float) <= 10000 THEN 2
-		WHEN cast(Balance as Float) <= 50000 THEN 3
-		WHEN cast(Balance as Float) <= 100000 THEN 4
-        ELSE 5
+	    WHEN Balance IS NULL THEN 'Unknown'
+		WHEN cast(Balance as Float) = 0 THEN 1
+		WHEN cast(Balance as Float) > 0 AND cast(Balance as Float) <= 30000 THEN 2
+		WHEN cast(Balance as Float) > 30000 AND cast(Balance as Float) <= 60000 THEN 3
+		WHEN cast(Balance as Float) > 60000 AND cast(Balance as Float) <= 90000 THEN 4
+		WHEN cast(Balance as Float) > 90000 AND cast(Balance as Float) <= 120000 THEN 5
+		ELSE 6
 	END AS Balance_Rank,
 
-	-- Add Salary Category.
+	-- Add Salary Category on the same scale as the Balance Category to enable visual comparison.
 	CASE
-        WHEN cast(EstimatedSalary as Float) <= 30000 THEN 'Under 30k'
-		WHEN cast(EstimatedSalary as Float) <= 60000 THEN '30k - 60k'
-		WHEN cast(EstimatedSalary as Float) <= 90000 THEN '60k - 90k'
-		WHEN cast(EstimatedSalary as Float) <= 120000 THEN '90k - 120k'
-        ELSE 'Over 120k'
+		WHEN EstimatedSalary IS NULL THEN 'Unknown'
+		WHEN cast(EstimatedSalary as Float) <= 0 THEN '$0'
+		WHEN cast(EstimatedSalary as Float) > 0 AND cast(EstimatedSalary as Float) <= 30000 THEN 'Under $30k'
+		WHEN cast(EstimatedSalary as Float) > 30000 AND cast(EstimatedSalary as Float) <= 60000 THEN '$30k - $60k'
+		WHEN cast(EstimatedSalary as Float) > 60000 AND cast(EstimatedSalary as Float) <= 90000 THEN '$60k - $90k'
+		WHEN cast(EstimatedSalary as Float) > 90000 AND cast(EstimatedSalary as Float) <= 120000 THEN '$90k - $120k'
+		ELSE 'Over $120k'
 	END AS Salary_Category,
+	-- Add a Salary Rank column to facilitate sorting of Balance_Category text values.
 	CASE
-        WHEN CAST(EstimatedSalary AS FLOAT) <= 30000 THEN 1
-        WHEN CAST(EstimatedSalary AS FLOAT) <= 60000 THEN 2
-        WHEN CAST(EstimatedSalary AS FLOAT) <= 90000 THEN 3
-        WHEN CAST(EstimatedSalary AS FLOAT) <= 120000 THEN 4
-        ELSE 5
+        WHEN EstimatedSalary IS NULL THEN 0
+		WHEN cast(EstimatedSalary as Float) = 0 THEN 1
+		WHEN cast(EstimatedSalary as Float) > 0 AND cast(EstimatedSalary as Float) <= 30000 THEN 2
+		WHEN cast(EstimatedSalary as Float) > 30000 AND cast(EstimatedSalary as Float) <= 60000 THEN 3
+		WHEN cast(EstimatedSalary as Float) > 60000 AND cast(EstimatedSalary as Float) <= 90000 THEN 4
+		WHEN cast(EstimatedSalary as Float) > 90000 AND cast(EstimatedSalary as Float) <= 120000 THEN 5
+		ELSE 6
     END AS Salary_Rank,
 
 	-- Add Credit Score Category.
@@ -130,4 +169,9 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 FROM tbl_customer_churn;
 
 
-select EstimatedSalary from tbl_customer_churn order by EstimatedSalary
+
+select * from churn_view
+
+SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'churn_view';
