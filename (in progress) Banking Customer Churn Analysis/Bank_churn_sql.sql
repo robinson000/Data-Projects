@@ -39,31 +39,10 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 	-- Add Tenure Classification.
 	CASE 
         WHEN Tenure <= 2 THEN 'New Customer'
-        WHEN Tenure <= 6 THEN 'Intermediate Customer'
-        ELSE 'Long-term customers'
+        WHEN Tenure <= 6 THEN 'Established Customer'
+        ELSE 'Long-term customer'
 	END AS Tenure_Classification,
 
-	-- Add Tenure Categories.
-	CASE 
-        WHEN Tenure < 1 THEN 'Under 1'
-        WHEN Tenure IN (1,2) THEN '1-2'
-		WHEN Tenure IN (3,4) THEN '3-4'
-		WHEN Tenure IN (5,6) THEN '5-6'
-		WHEN Tenure IN (7,8) THEN '7-8'
-		WHEN Tenure IN (9,10) THEN '9-10'
-        ELSE NULL
-	END AS Tenure_Categories,
-
-	-- Add Tenure Categories Rank.
-	CASE 
-        WHEN Tenure < 1 THEN 1
-        WHEN Tenure IN (1,2) THEN 2
-		WHEN Tenure IN (3,4) THEN 3
-		WHEN Tenure IN (5,6) THEN 4
-		WHEN Tenure IN (7,8) THEN 5
-		WHEN Tenure IN (9,10) THEN 6
-        ELSE NULL
-	END AS Tenure_Rank,
 
 	-- Add Balance Category on the same scale as the Salary Category to enable visual comparison.
 	CASE
@@ -75,6 +54,7 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 		WHEN cast(Balance as Float) > 90000 AND cast(Balance as Float) <= 120000 THEN '$90k - $120k'
 		ELSE 'Over $120k'
 	END AS Balance_Category,
+
 	-- Add a Balance Rank column to facilitate sorting of Balance_Category text values.
 	CASE
 	    WHEN Balance IS NULL THEN 'Unknown'
@@ -96,6 +76,7 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 		WHEN cast(EstimatedSalary as Float) > 90000 AND cast(EstimatedSalary as Float) <= 120000 THEN '$90k - $120k'
 		ELSE 'Over $120k'
 	END AS Salary_Category,
+
 	-- Add a Salary Rank column to facilitate sorting of Balance_Category text values.
 	CASE
         WHEN EstimatedSalary IS NULL THEN 0
@@ -106,6 +87,14 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 		WHEN cast(EstimatedSalary as Float) > 90000 AND cast(EstimatedSalary as Float) <= 120000 THEN 5
 		ELSE 6
     END AS Salary_Rank,
+
+	-- Add a Salary Rank column to facilitate sorting of Balance_Category text values.
+	CASE
+        WHEN NumOfProducts IS NULL THEN NULL
+		WHEN NumOfProducts = 1 THEN 0
+		WHEN NumOfProducts > 1 THEN 1
+		ELSE NULL
+    END AS Multiple_Products_IND,
 
 	-- Add Credit Score Category.
 	CASE
@@ -132,6 +121,32 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 
 	-- Add Debt to Income Ratio Column.
 	Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) as Debt_Income_Ratio,
+
+	-- Add Debt to Income Ratio Categories
+	CASE
+		WHEN EstimatedSalary IS NULL THEN 'Unknown'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 0.25 THEN '0% - 25%'        
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 0.5 THEN '25% - 50%'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 1 THEN '50% - 100%'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 3 THEN '100% - 300%'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 5 THEN '300% - 500%'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 10 THEN '500% - 1,000%'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 15 THEN '1,000% - 5,000%'
+		ELSE 'Over 5,000%'
+	END AS DTI_Category,
+
+	-- Add Debt to Income Ratio Rank
+	CASE
+		WHEN EstimatedSalary IS NULL THEN 'Unknown'
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 0.25 THEN 1        
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 0.5 THEN 2
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 1 THEN 3
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 3 THEN 4
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 5 THEN 5
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 10 THEN 6
+		WHEN Round(CAST(Balance as FLOAT) / CAST(EstimatedSalary as FLOAT),2) <= 15 THEN 7
+		ELSE 8
+	END AS DTI_Category_Rank,
 	
 	-- Add Loyalty Indicator Column. Determine loyalty status for customers with a tenure greater than 6 years and a high satisfaction score.
 	CASE 
