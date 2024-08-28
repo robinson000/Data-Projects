@@ -6,7 +6,7 @@ Banking Customer Churn Analysis.
 
 2) I imported the data into SQL Server on my desktop.
 
-3) I created a new view with filtered data and added KPI columns.
+3) I created a new view with filtered data and added new columns.
 
 4) I connected my database to Power BI.
 
@@ -179,7 +179,7 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
 		WHEN IsActiveMember = 0 THEN 'No Complaint'
     END AS Complaint_Status,
 
-	-- Add Churn Risk KPI 
+	-- Add Churn Risk Categories 
     CASE
         WHEN Exited = 1 THEN 'Churned'
         ELSE
