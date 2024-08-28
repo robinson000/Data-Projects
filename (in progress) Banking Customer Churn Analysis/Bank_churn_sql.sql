@@ -106,6 +106,16 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
         ELSE 'Invalid Credit Score'
 	END AS CreditScore_Category,
 
+	-- Add Credit Score Rank.
+	CASE
+	    WHEN CreditScore BETWEEN 300 AND 579 THEN 1 
+        WHEN CreditScore BETWEEN 580 AND 669 THEN 2 
+		WHEN CreditScore BETWEEN 670 AND 739 THEN 3 
+		WHEN CreditScore BETWEEN 740 AND 799 THEN 4
+		WHEN CreditScore BETWEEN 800 AND 850 THEN 5
+        ELSE 'Invalid Credit Score'
+	END AS CreditScore_Category_Rank,
+
 	-- Modify Satisfaction Score values
 	CASE
 	    WHEN "Satisfaction Score" = '1' Then 'Very Dissatisfied'
@@ -157,11 +167,17 @@ EstimatedSalary, Exited, Complain as Complain_Flag, "Satisfaction Score","Card T
    -- Add Customer Value Column. Calculate hypothetical annual revenue from debt assuming an interest rate of 10% if debt balance generates a 10% annual interest for the bank.
 	CAST(Balance as FLOAT) * 0.1 AS Customer_Annual_Value,
 
-	-- Add Active Member with Credit Card Flag.
+	-- Add Activity Status Column.
 	CASE 
-        WHEN IsActiveMember = 1 AND HasCrCard = 1 THEN 1
-		ELSE 0
-    END AS Active_Member_Credit_Card,
+        WHEN IsActiveMember = 1 THEN 'Active Member'
+		WHEN IsActiveMember = 0 THEN 'Inactive  Member'
+    END AS Activity_Status,
+
+	-- Add Compliant Status Column.
+	CASE 
+        WHEN Complain = 1 THEN 'Complaint Submitted'
+		WHEN IsActiveMember = 0 THEN 'No Complaint'
+    END AS Complaint_Status,
 
 	-- Add Churn Risk KPI 
     CASE
